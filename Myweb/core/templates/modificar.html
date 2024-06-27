@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>ValsGarden</title>
+        {% load static %}
+        <link rel="icon" href="{% static 'img/icono.jpeg' %}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+        <link href="{% static 'css/estilo.css' %}" rel="stylesheet">
+    
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+    
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+    
+    </head>
+    
+    <body>
+        <nav class="navbar navbar-expand-md navbar-light bg-light mb-4" id="barraNav">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'img/icono.jpeg' %}" width="40px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                    {% include 'menuAdmin.html' %}
+                {% else %}
+                    {% include 'menuCliente.html' %}
+                {% endif %}
+            {% else %}
+                {% include 'menuGeneral.html' %}
+            {% endif %}
+        </nav>
+
+        <main class="container">
+
+            <H2>Modificando Planta</H2>
+            <br>
+
+            <form action="#" method="POST" enctype="multipart/form-data" id="formulario">  
+                {% csrf_token %}
+
+                <div class="form-group">
+                    {{ forModificar.idPlanta.label }}
+                    {{ forModificar.idPlanta }}
+                </div>
+
+                {% if planta.imagen %}
+                    <img src="{{ planta.imagen.url }}" style="width: 80px; height: 80px;">
+                {% else %}
+                    <h5 style="color:red">Producto sin foto</h5>
+                {% endif %}
+
+                <div class="form-group">
+                    {{ forModificar.imagen.label }}
+                    {{ forModificar.imagen }}
+                </div>
+
+                <div class="form-group">
+                    {{ forModificar.nombre.label }}
+                    {{ forModificar.nombre }}
+                </div>
+
+                <div class="form-group">
+                    {{ forModificar.categoria.label }}
+                    {{ forModificar.categoria }}
+                </div>
+
+                <div class="form-group">
+                    {{ forModificar.stock.label }}
+                    {{ forModificar.stock }}
+                </div>
+                <div class="form-group">
+                    {{ forModificar.precio.label }}
+                    {{ forModificar.precio }}
+                </div>  
+                <input type="submit" value="Modificar" class="btn btn-outline-warning">
+                <a href="{% url 'productos' %}" class="btn btn-outline-info">Ir a catálogo</a>
+            </form>
+        </main>
+</body>
+</html>

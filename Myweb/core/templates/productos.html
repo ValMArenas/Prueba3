@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>ValsGarden</title>
+        {% load static %}
+        <link rel="icon" href="{% static 'img/icono.jpeg' %}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+        <link href="{% static 'css/estilo.css' %}" rel="stylesheet">
+    
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+    
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+    
+    </head>
+    
+    <body>
+        <nav class="navbar navbar-expand-md navbar-light bg-light mb-4" id="barraNav">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'img/icono.jpeg' %}" width="40px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                    {% include 'menuAdmin.html' %}
+                {% else %}
+                    {% include 'menuCliente.html' %}
+                {% endif %}
+            {% else %}
+                {% include 'menuGeneral.html' %}
+            {% endif %}
+        </nav>
+        
+    <main class="container">
+        <h2 class="inicio-letras">Catálogo</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    {% if user.is_staff %}
+                    <a href="{% url 'crear' %}" class="btn btn-primary">Agregar planta</a>
+                    <th>ID Planta</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                    <th>Actualizar</th>
+                    <th>Eliminar</th>
+                    {%  endif %}
+                    <th>ID Planta</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for Planta in plantas %}
+                        <tr>
+                            <td><a href="{% url 'detallePlanta' Planta.idPlanta %}" class="btn btn-outline-info"> {{ Planta.idPlanta }}</a></td>
+                            <td>
+                                <img src="{{ Planta.imagen.url }}" style="height: 60px; width: 60px;">
+                            </td>
+                            <td>{{ Planta.nombre }}</td>
+                            <td>{{ Planta.categoria }}</td>
+                            <td>{{ Planta.stock }}</td>
+                            <td>{{ Planta.precio }}</td>
+                            {% if user.is_staff %}
+                            <td><a href="{% url 'modificar' Planta.idPlanta %}" class="btn btn-outline-warning">Modificar</a></td>
+                            <td><a href="{% url 'eliminar' Planta.idPlanta %}" class="btn btn-outline-danger">Eliminar</a></td>
+                            {%  endif %}
+                            <a href="{%  url 'agregar' planta.idPlanta %}" class="btn btn-outline-info">Agregar al carrito</a>
+                        </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

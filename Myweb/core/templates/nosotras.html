@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ValsGarden</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/icono.jpeg' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/estilo.css' %}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4" id="barraNav">
+        <a href="{% url 'index' %}">
+            <img src="{% static 'img/icono.jpeg' %}" width="40px">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                {% include 'menuAdmin.html' %}
+            {% else %}
+                {% include 'menuCliente.html' %}
+            {% endif %}
+        {% else %}
+            {% include 'menuGeneral.html' %}
+        {% endif %}
+
+
+    </nav>
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md">
+              <h1 class="inicio-letras">¿Quiénes somos?</h1>
+              <p class="parrafos">Val´s Garden nace desde un amor y conexión profunda hacia la naturaleza. Creemos en el poder sanador de las plantas y en su capacidad para conectarnos con lo esencial. Buscamos no solo vender productos, sino también fomentar un vínculo más profundo con el mundo natural. Nuestra misión es cultivar una comunidad que comparta estos valores y que juntos trabajemos para preservar y honrar nuestro entorno. Con cada planta que vendemos, compartimos un mensaje de respeto, gratitud y armonía con la naturaleza.</p>
+            </div>
+            <div class="col-md">
+              <h3 class="inicio-letras" style="padding-top: 10pt;">Más información en el siguiente video.</h3>
+              <p style="text-align: center;">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/akgiNr5E9KI?si=vS1nMt9SRPhcM64n" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </p>
+            </div>
+          </div>
+
+    </main><br>
+    <footer class="bg-dark text-light text-center py-2 mt-4">
+            <div class="container">
+                <span style="font-size: small;"> &copy; Val's Garden - Todos los derechos reservados 2024</span>
+                <a href="https://www.instagram.com/vl.alomar?igsh=c3ZmOGZlODZrcDVz&utm_source=qr">
+                  <img src="{% static 'img/instagram.png' %}" width="31px" height="31px" style="margin-left: 15px;">
+                </a>
+            </div>
+    </footer>
+
+    <script type="text/javascript">
+        let ubicacionInicial = window.pageYOffset;
+        window.onscroll = function () {
+            let ubicacionPosterior = window.pageYOffset;
+            if (ubicacionInicial >= ubicacionPosterior) {
+                document.getElementById("barraNav").style.top = "0";
+            }
+            else {
+                document.getElementById("barraNav").style.top = "-70px";
+            }
+            ubicacionInicial = ubicacionPosterior
+        }
+    </script>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/validacion.js' %}"></script>
+
+</html>

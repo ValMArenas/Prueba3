@@ -1,0 +1,16 @@
+{
+    "sucursales":[
+        {
+            "id":"1",
+            "calle":"Antártica Chilena 2685",
+            "comuna":"Maipú",
+            "tipo":"Central"
+        },
+        {
+            "id":"2",
+            "calle":"El Acantilado 2112",
+            "comuna":"Peñalolén",
+            "tipo":"Sucursal"
+        }
+    ]
+}
